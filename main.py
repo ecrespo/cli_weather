@@ -15,8 +15,8 @@ from rich.table import Table
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+api_key = ''
 
-api_key = 'ecea629a4da8ced9b34aaed566714569'
 tf = TimezoneFinder()
 fmt = '%Y-%m-%d %H:%M:%S %Z%z'
 def __prompt() -> str:
