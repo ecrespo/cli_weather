@@ -1,9 +1,9 @@
 import sys
-from datetime import *
-import pytz
+import os
+from datetime import datetime
 from pytz import timezone
 from timezonefinder import TimezoneFinder
-from deep_translator import GoogleTranslator
+# from deep_translator import GoogleTranslator
 
 # This is a sample Python script.
 import httpx
@@ -11,11 +11,13 @@ from geopy.geocoders import Nominatim
 import typer  # pip install "typer[all]"
 from rich import print  # pip install rich
 from rich.table import Table
+from dotenv import load_dotenv
 
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-api_key = ''
+load_dotenv()
+api_key = os.getenv("api_key")
 
 tf = TimezoneFinder()
 fmt = '%Y-%m-%d %H:%M:%S %Z%z'
@@ -23,7 +25,7 @@ def __prompt() -> str:
     prompt = typer.prompt("\n¿Quieres conocer el clima? (Y/n)")
 
     if prompt in ["exit", "n", "N", ""]:
-        if exit := typer.confirm("✋ ¿Estás seguro?"):
+        if _exit := typer.confirm("✋ ¿Estás seguro?"):
             print("👋 ¡Hasta luego!")
             sys.exit(typer.Abort())
 
@@ -35,7 +37,7 @@ def fah_to_cel(value:float)->  float:
     """Convierte grados Fahrenheit a grados Celsius."""
     return (value - 32) * 5/9
 
-def main(name):
+def main():
     # Use a breakpoint in the code line below to debug your script.
     # Give city name
     print("💬 [bold green]Weather API en Python[/bold green]")
@@ -78,7 +80,6 @@ def main(name):
             velocidad = results['wind']['speed']
             deg = results['wind']['deg']
             nubosidad = results['clouds']['all']
-            #translated = GoogleTranslator(source='en', target='es').translate(clima)
             table2.add_row("Clima", f"{clima}")
             table2.add_row("Temperatura", f"{temperatura}")
             table2.add_row("Presión", f"{presion}")
@@ -94,6 +95,6 @@ def main(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    main('PyCharm')
+    main()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
